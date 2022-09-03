@@ -5,19 +5,35 @@
         "factoryName": {
             "type": "string",
             "metadata": "Data Factory name",
-            "defaultValue": "adfsubha001"
+            "defaultValue": "adfsubha0proj1"
         },
-        "AzureBlobStorage1_connectionString": {
+        "ls_blob_subha1_proj1_connectionString": {
             "type": "secureString",
-            "metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+            "metadata": "Secure string for 'connectionString' of 'ls_blob_subha1_proj1'"
         },
-        "linkDataLakeStorage1_accountKey": {
+        "lsdatalakelinksubha1proj1_accountKey": {
             "type": "secureString",
-            "metadata": "Secure string for 'accountKey' of 'linkDataLakeStorage1'"
+            "metadata": "Secure string for 'accountKey' of 'lsdatalakelinksubha1proj1'"
         },
-        "linkDataLakeStorage1_properties_typeProperties_url": {
+        "lsAzureDataLakeStorage1_accountKey": {
+            "type": "secureString",
+            "metadata": "Secure string for 'accountKey' of 'lsAzureDataLakeStorage1'"
+        },
+        "lsAzureSqlDatabase_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'lsAzureSqlDatabase'"
+        },
+        "AzureKeyVault1_properties_typeProperties_baseUrl": {
             "type": "string",
-            "defaultValue": "https://datalakesubha001.dfs.core.windows.net/"
+            "defaultValue": "https://kvsubha1proj1.vault.azure.net/"
+        },
+        "lsdatalakelinksubha1proj1_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://blobsubha1proj1.dfs.core.windows.net/"
+        },
+        "lsAzureDataLakeStorage1_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://datalakesubha0proj1.dfs.core.windows.net/"
         }
     },
     "variables": {
@@ -25,13 +41,13 @@
     },
     "resources": [
         {
-            "name": "[concat(parameters('factoryName'), '/pipelineadf_subha')]",
+            "name": "[concat(parameters('factoryName'), '/pipe_subha1_proj1')]",
             "type": "Microsoft.DataFactory/factories/pipelines",
             "apiVersion": "2018-06-01",
             "properties": {
                 "activities": [
                     {
-                        "name": "Copy file",
+                        "name": "Copy data1",
                         "type": "Copy",
                         "dependsOn": [],
                         "policy": {
@@ -72,12 +88,109 @@
                                     {
                                         "source": {
                                             "type": "String",
+                                            "physicalType": "String",
                                             "ordinal": 1
                                         },
                                         "sink": {
                                             "type": "String",
                                             "physicalType": "String",
                                             "ordinal": 1
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 2
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 2
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 3
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 3
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 4
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 4
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 5
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 5
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 6
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 6
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 7
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 7
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 8
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 8
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 9
+                                        },
+                                        "sink": {
+                                            "type": "String",
+                                            "physicalType": "String",
+                                            "ordinal": 9
                                         }
                                     }
                                 ],
@@ -90,14 +203,14 @@
                         },
                         "inputs": [
                             {
-                                "referenceName": "sourceds",
+                                "referenceName": "ds_blob_subha1_proj1",
                                 "type": "DatasetReference",
                                 "parameters": {}
                             }
                         ],
                         "outputs": [
                             {
-                                "referenceName": "target",
+                                "referenceName": "dsdatalake01",
                                 "type": "DatasetReference",
                                 "parameters": {}
                             }
@@ -111,30 +224,43 @@
                 "annotations": []
             },
             "dependsOn": [
-                "[concat(variables('factoryId'), '/datasets/sourceds')]",
-                "[concat(variables('factoryId'), '/datasets/target')]"
+                "[concat(variables('factoryId'), '/datasets/ds_blob_subha1_proj1')]",
+                "[concat(variables('factoryId'), '/datasets/dsdatalake01')]"
             ]
         },
         {
-            "name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+            "name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureKeyVault",
+                "typeProperties": {
+                    "baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ls_blob_subha1_proj1')]",
             "type": "Microsoft.DataFactory/factories/linkedServices",
             "apiVersion": "2018-06-01",
             "properties": {
                 "annotations": [],
                 "type": "AzureBlobStorage",
                 "typeProperties": {
-                    "connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+                    "connectionString": "[parameters('ls_blob_subha1_proj1_connectionString')]"
                 }
             },
             "dependsOn": []
         },
         {
-            "name": "[concat(parameters('factoryName'), '/sourceds')]",
+            "name": "[concat(parameters('factoryName'), '/ds_blob_subha1_proj1')]",
             "type": "Microsoft.DataFactory/factories/datasets",
             "apiVersion": "2018-06-01",
             "properties": {
                 "linkedServiceName": {
-                    "referenceName": "AzureBlobStorage1",
+                    "referenceName": "ls_blob_subha1_proj1",
                     "type": "LinkedServiceReference"
                 },
                 "annotations": [],
@@ -142,8 +268,8 @@
                 "typeProperties": {
                     "location": {
                         "type": "AzureBlobStorageLocation",
-                        "fileName": "Currency.csv",
-                        "container": "con1"
+                        "fileName": "testing.csv",
+                        "container": "conblobsubha0proj1"
                     },
                     "columnDelimiter": ",",
                     "escapeChar": "\\",
@@ -152,37 +278,78 @@
                 "schema": [
                     {
                         "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
+                    },
+                    {
+                        "type": "String"
                     }
                 ]
             },
             "dependsOn": [
-                "[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+                "[concat(variables('factoryId'), '/linkedServices/ls_blob_subha1_proj1')]"
             ]
         },
         {
-            "name": "[concat(parameters('factoryName'), '/linkDataLakeStorage1')]",
+            "name": "[concat(parameters('factoryName'), '/lsdatalakelinksubha1proj1')]",
             "type": "Microsoft.DataFactory/factories/linkedServices",
             "apiVersion": "2018-06-01",
             "properties": {
                 "annotations": [],
                 "type": "AzureBlobFS",
                 "typeProperties": {
-                    "url": "[parameters('linkDataLakeStorage1_properties_typeProperties_url')]",
+                    "url": "[parameters('lsdatalakelinksubha1proj1_properties_typeProperties_url')]",
                     "accountKey": {
                         "type": "SecureString",
-                        "value": "[parameters('linkDataLakeStorage1_accountKey')]"
+                        "value": "[parameters('lsdatalakelinksubha1proj1_accountKey')]"
                     }
                 }
             },
             "dependsOn": []
         },
         {
-            "name": "[concat(parameters('factoryName'), '/target')]",
+            "name": "[concat(parameters('factoryName'), '/lsAzureDataLakeStorage1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobFS",
+                "typeProperties": {
+                    "url": "[parameters('lsAzureDataLakeStorage1_properties_typeProperties_url')]",
+                    "accountKey": {
+                        "type": "SecureString",
+                        "value": "[parameters('lsAzureDataLakeStorage1_accountKey')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/dsdatalake01')]",
             "type": "Microsoft.DataFactory/factories/datasets",
             "apiVersion": "2018-06-01",
             "properties": {
                 "linkedServiceName": {
-                    "referenceName": "linkDataLakeStorage1",
+                    "referenceName": "lsAzureDataLakeStorage1",
                     "type": "LinkedServiceReference"
                 },
                 "annotations": [],
@@ -190,7 +357,8 @@
                 "typeProperties": {
                     "location": {
                         "type": "AzureBlobFSLocation",
-                        "fileSystem": "datalakecon"
+                        "fileName": "testing.txt",
+                        "fileSystem": "condatalakesubha0proj1"
                     },
                     "columnDelimiter": ",",
                     "escapeChar": "\\",
@@ -199,7 +367,218 @@
                 "schema": []
             },
             "dependsOn": [
-                "[concat(variables('factoryId'), '/linkedServices/linkDataLakeStorage1')]"
+                "[concat(variables('factoryId'), '/linkedServices/lsAzureDataLakeStorage1')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/pipe-subha2-sqlserver')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Copy data to SQL Server",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "DelimitedTextSource",
+                                "storeSettings": {
+                                    "type": "AzureBlobFSReadSettings",
+                                    "recursive": true,
+                                    "wildcardFileName": "*",
+                                    "enablePartitionDiscovery": false
+                                },
+                                "formatSettings": {
+                                    "type": "DelimitedTextReadSettings"
+                                }
+                            },
+                            "sink": {
+                                "type": "AzureSqlSink",
+                                "writeBehavior": "insert",
+                                "sqlWriterUseTableLock": false,
+                                "tableOption": "autoCreate",
+                                "disableMetricsCollection": false
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "mappings": [
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 1
+                                        },
+                                        "sink": {
+                                            "name": "country",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 2
+                                        },
+                                        "sink": {
+                                            "name": "country_code",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 3
+                                        },
+                                        "sink": {
+                                            "name": "year_week",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 4
+                                        },
+                                        "sink": {
+                                            "name": "new_cases",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 5
+                                        },
+                                        "sink": {
+                                            "name": "tests_done",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 6
+                                        },
+                                        "sink": {
+                                            "name": "population",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 7
+                                        },
+                                        "sink": {
+                                            "name": "testing_rate",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 8
+                                        },
+                                        "sink": {
+                                            "name": "positivity_rate",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    },
+                                    {
+                                        "source": {
+                                            "type": "String",
+                                            "ordinal": 9
+                                        },
+                                        "sink": {
+                                            "name": "testing_data_source",
+                                            "type": "String",
+                                            "physicalType": "varchar"
+                                        }
+                                    }
+                                ],
+                                "typeConversion": true,
+                                "typeConversionSettings": {
+                                    "allowDataTruncation": true,
+                                    "treatBooleanAsNumber": false
+                                }
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "dsdatalake01",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "dsAzureSqlTable",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    }
+                ],
+                "policy": {
+                    "elapsedTimeMetric": {},
+                    "cancelAfter": {}
+                },
+                "annotations": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/dsdatalake01')]",
+                "[concat(variables('factoryId'), '/datasets/dsAzureSqlTable')]",
+                "[concat(variables('factoryId'), '/linkedServices/lsAzureDataLakeStorage1')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/lsAzureSqlDatabase')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": "[parameters('lsAzureSqlDatabase_connectionString')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/dsAzureSqlTable')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "lsAzureSqlDatabase",
+                    "type": "LinkedServiceReference"
+                },
+                "annotations": [],
+                "type": "AzureSqlTable",
+                "schema": [],
+                "typeProperties": {
+                    "schema": "dbo",
+                    "table": "tabtesting"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/lsAzureSqlDatabase')]"
             ]
         }
     ]
